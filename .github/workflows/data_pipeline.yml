@@ -13,10 +13,10 @@ jobs:
 
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v4  # Mise à jour de v3 à v4
+        uses: actions/checkout@v4
 
       - name: Set up Python
-        uses: actions/setup-python@v5  # Mise à jour de v4 à v5
+        uses: actions/setup-python@v5
         with:
           python-version: '3.9'
 
@@ -24,17 +24,10 @@ jobs:
         run: |
           pip install pandas requests matplotlib seaborn fpdf
 
+      - name: Check if data_pipeline.py exists
+        run: |
+          if [ ! -f "data_pipeline.py" ]; then echo "❌ ERREUR : Fichier data_pipeline.py introuvable"; exit 1; fi
+          echo "✅ Fichier trouvé, exécution en cours..."
+
       - name: Execute Data Pipeline
         run: python data_pipeline.py
-
-      - name: Execute Data Visualization
-        run: python data_visualization.py
-
-      - name: Upload Reports and Graphs
-        uses: actions/upload-artifact@v4  # Mise à jour de v3 à v4
-        with:
-          name: visualization_report
-          path: |
-            data_report.pdf
-            category_distribution.png
-            https_support.png
