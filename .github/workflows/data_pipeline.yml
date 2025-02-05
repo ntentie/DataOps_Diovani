@@ -13,10 +13,10 @@ jobs:
 
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4  # Mise à jour de v3 à v4
 
       - name: Set up Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5  # Mise à jour de v4 à v5
         with:
           python-version: '3.9'
 
@@ -31,7 +31,7 @@ jobs:
         run: python data_visualization.py
 
       - name: Upload Reports and Graphs
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4  # Mise à jour de v3 à v4
         with:
           name: visualization_report
           path: |
