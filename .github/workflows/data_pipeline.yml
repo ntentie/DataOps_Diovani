@@ -5,7 +5,7 @@ on:
     branches:
       - main
   schedule:
-    - cron: '0 12 * * *'  # Exécute le script chaque jour à midi UTC
+    - cron: '0 12 * * *'  # Exécute tous les jours à midi UTC
 
 jobs:
   run_pipeline:
@@ -22,13 +22,19 @@ jobs:
 
       - name: Install Dependencies
         run: |
-          pip install pandas requests
+          pip install pandas requests matplotlib seaborn fpdf
 
       - name: Execute Data Pipeline
         run: python data_pipeline.py
 
-      - name: Upload Output File
+      - name: Execute Data Visualization
+        run: python data_visualization.py
+
+      - name: Upload Reports and Graphs
         uses: actions/upload-artifact@v3
         with:
-          name: output_data
-          path: output_data.csv
+          name: visualization_report
+          path: |
+            data_report.pdf
+            category_distribution.png
+            https_support.png
